@@ -21,9 +21,9 @@
     <!--2.配置druid连接池:dataSource-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <!-- 数据库基本信息配置 -->
-        <property name="url" value="${url}"/>
-        <property name="username" value="${username}"/>
-        <property name="password" value="${password}"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/ssm_shiro"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
         <property name="driverClassName" value="${driverClassName}"/>
         <property name="filters" value="${filters}"/>
         <!-- 最大并发连接数 -->

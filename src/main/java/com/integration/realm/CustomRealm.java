@@ -35,8 +35,7 @@ public class CustomRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String username = (String)principals.getPrimaryPrincipal();
-//        Users user = userService.findByUserName(username);
-//        user.setLocked(true);   //登录成功后锁定用户
+        System.out.println("-----------------sq------------------"+username);
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 
         //根据用户名查找对应的角色集合
@@ -49,21 +48,26 @@ public class CustomRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+
         String username = (String)token.getPrincipal();
+        System.out.println("-----------------rz------------------"+username);
 
         //根据用户名查找用户
         User user = userService.findByUserName(username);
+        System.out.println(user);
         if(user == null) {
-            throw new UnknownAccountException();//没找到帐号
+            //没找到帐号
+            throw new UnknownAccountException();
         }
-//        if(Boolean.TRUE.equals(user.getLocked())) {
-//            throw new LockedAccountException(); //帐号锁定
-//        }
+
         //交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                user.getUsername(), //用户名
-                user.getPassword(), //密码
-                getName()  //realm name
+                //用户名
+                user.getUsername(),
+                //密码
+                user.getPassword(),
+                //realm name
+                getName()
         );
         return authenticationInfo;
     }

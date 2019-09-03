@@ -32,27 +32,11 @@
     <!--怎么解决?配置该文件的路径-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring/applicationContext.xml</param-value>
+        <param-value>classpath:spring/applicationContext.xml
+            classpath:spring/spring-shiro-web.xml</param-value>
     </context-param>
-
-    <!--1.配置前端控制器-->
-    <servlet>
-        <servlet-name>dispatcherServlet</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <!--2.加载spring-mvc.xml配置文件-->
-        <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:spring/spring-mvc.xml</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-        <async-supported>true</async-supported>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>dispatcherServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-
-    <!--Shiro监听和过滤器-->
+    
+        <!--Shiro监听和过滤器-->
     <filter>
         <filter-name>shiroFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -65,10 +49,26 @@
     <filter-mapping>
         <filter-name>shiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>INCLUDE</dispatcher>
-        <dispatcher>ERROR</dispatcher>
     </filter-mapping>
+    
+
+    <!--1.配置前端控制器-->
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--2.加载spring-mvc.xml配置文件-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/spring-mvc.xml
+                classpath:spring/spring-shiro-web.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

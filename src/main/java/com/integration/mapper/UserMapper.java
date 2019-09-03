@@ -1,22 +1,30 @@
-/**
- * Copyright (C), 2015-2019, XXX有限公司
- * FileName: UserMapper
- * Author:   yhw
- * Date:     2019/9/3 10:39
- * Description:
- * History:
- * <author>          <time>          <version>          <desc>
- * 作者姓名           修改时间           版本号              描述
- */
 package com.integration.mapper;
 
-/**
- * 〈一句话功能简述〉<br> 
- * 〈〉
- *
- * @author yhw
- * @create 2019/9/3
- * @since 1.0.0
- */
-public class UserMapper {
+import com.integration.pojo.Permission;
+import com.integration.pojo.Role;
+import com.integration.pojo.User;
+
+
+import java.util.List;
+import java.util.Set;
+
+public interface UserMapper {
+    int deleteByPrimaryKey(Integer user_id);
+
+    int insert(User record);
+
+    int insertSelective(User record);
+
+    User selectByPrimaryKey(Integer user_id);
+
+    int updateByPrimaryKeySelective(User record);
+
+    int updateByPrimaryKey(User record);
+
+    //自定义
+    User findByUserName(String username);
+
+    List<Role> findRoles(String username);
+
+    List<Permission> findPermissions(String username);
 }
