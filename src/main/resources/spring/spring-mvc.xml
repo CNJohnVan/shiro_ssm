@@ -10,8 +10,16 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
+    <context:annotation-config/>
     <!--1.开启注解扫描-->
-    <context:component-scan base-package="com.integration"/>
+    <context:component-scan base-package="com.integration.controller">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--开启springMVC注解支持-->
+    <mvc:annotation-driven />
+
+    <mvc:default-servlet-handler />
 
     <!-- 开启shiro的注解支持 -->
     <bean id="defaultAdvisorAutoProxyCreator"
@@ -34,7 +42,4 @@
     <mvc:resources location="/images/" mapping="/images/**" />
     <mvc:resources location="/js/" mapping="/js/**" />-->
 
-    <!--4.开启springMVC注解支持-->
-    <!--注意不要写成annotation-driver-->
-    <mvc:annotation-driven/>
 </beans>

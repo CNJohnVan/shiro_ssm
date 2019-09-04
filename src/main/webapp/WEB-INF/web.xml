@@ -7,7 +7,7 @@
 
     <!--欢迎页面-->
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
 
     <!--中文乱码过滤器-->
@@ -24,19 +24,17 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!--配置spring的监听器,默认只去加载WEB-INF目录下的applicationContext.xml配置文件
-        如果applicationContext.xml在resources目录下,项目发布到tomcat上时将找不到该文件-->
+    <!--配置spring-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/applicationContext.xml,
+            classpath:spring/spring-shiro-web.xml</param-value>
+    </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <!--怎么解决?配置该文件的路径-->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring/applicationContext.xml
-            classpath:spring/spring-shiro-web.xml</param-value>
-    </context-param>
     
-        <!--Shiro监听和过滤器-->
+    <!--配置shiro-->
     <filter>
         <filter-name>shiroFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -52,23 +50,19 @@
     </filter-mapping>
     
 
-    <!--1.配置前端控制器-->
+    <!--配置DispatcherServlet-->
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <!--2.加载spring-mvc.xml配置文件-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:spring/spring-mvc.xml
-                classpath:spring/spring-shiro-web.xml</param-value>
+            <param-value>classpath:spring/spring-mvc.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
-        <async-supported>true</async-supported>
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
 
 </web-app>

@@ -10,15 +10,12 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!--1.开启注解扫描,spring只负责service-mapper,controller交给springMVC处理-->
-    <context:component-scan base-package="com.integration"/>
+    <!--1.开启注解扫描,只负责service-->
+    <context:component-scan base-package="com.integration.service"/>
 
-    <!--spring整合mybatis-->
-    <!--1.配置连接池-->
-    <!-- 加载数据库配置文件 -->
+    <!--配置mybatis -->
     <context:property-placeholder location="classpath:db.properties"/>
-
-    <!--2.配置druid连接池:dataSource-->
+    <!--配置druid连接池-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <!-- 数据库基本信息配置 -->
         <property name="url" value="jdbc:mysql://localhost:3306/ssm_shiro"/>
@@ -63,17 +60,13 @@
 
     <!--3.Mapper接口所在包.-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!-- 注入sqlSessionFactory -->
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 给出需要扫描Mapper接口包 -->
         <property name="basePackage" value="com.integration.mapper"/>
     </bean>
 
     <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <!-- 注入数据库连接池 -->
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <!-- 配置基于注解的声明式事务 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>
